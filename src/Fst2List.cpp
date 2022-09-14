@@ -1466,16 +1466,16 @@ public:
     int k = a->number_of_tags - 1;
     for(int i = last_number_of_tags; i < a->number_of_tags; i++) {
       a->tags[i] = new_Fst2Tag(NULL);
-      a->tags[i]->input = u_strdup(entries[lexicalMaskCnt + k - last_number_of_tags]->inflected);
+      a->tags[i]->input = u_strdup(entries[k - last_number_of_tags]->inflected);
       if(processedLexicalMasks[lexicalMaskCnt].output != NULL) {
         a->tags[i]->output = u_strdup(processedLexicalMasks[lexicalMaskCnt].output);
         if (u_starts_with(processedLexicalMasks[lexicalMaskCnt].output, "$")){ // var dic
           struct any* value = get_value(dela_entries, a->tags[i], HT_INSERT_IF_NEEDED);
-          value->_ptr = entries[lexicalMaskCnt + k - last_number_of_tags];
-          entries[lexicalMaskCnt + k - last_number_of_tags] = NULL;
+          value->_ptr = entries[k - last_number_of_tags];
+          entries[k - last_number_of_tags] = NULL;
         }
       }
-      free_dela_entry(entries[lexicalMaskCnt + k - last_number_of_tags]);
+      free_dela_entry(entries[k - last_number_of_tags]);
       add_transition_to_state(a->states[a->number_of_states - 2], i, a->number_of_states - 1, NULL);
       k--;
     }
